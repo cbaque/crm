@@ -11,6 +11,7 @@ class DocumentoData {
 	public $fecha;
 	public $paciente;
 	public $cedula;
+	public $cantidad;
 
 	public function DocumentoData(){
 		$this->id = "";
@@ -22,6 +23,7 @@ class DocumentoData {
 		$this->fecha = fecha::getDatetimeNow();
 		$this->paciente = "";
 		$this->cedula= "";
+		$this->cantidad= 0;
 
 	}
 
@@ -59,9 +61,22 @@ class DocumentoData {
 
 	public static function getAllCount() {
 
-		$sql = "select paciente,cedula,fecha,archivo_id,COUNT(doc.archivo_id) as cantidad from ".self::$tablename." GROUP by archivo_id ";
+		$sql = "select paciente, cedula, count(archivo_id) as cantidad, archivo_id from ".self::$tablename." GROUP by archivo_id ";
 		$query = Executor::doit($sql);
-		$data = Model::one($query[0],new DocumentoData());
+		
+		$data = Model::many($query[0],new DocumentoData());
+
+		return $data;		
+
+	}
+
+
+	public static function getByArchivoId($archivoID) {
+
+		$sql = "select * from ".self::$tablename." where archivo_id = $archivoID ";
+		$query = Executor::doit($sql);
+		
+		$data = Model::many($query[0],new DocumentoData());
 
 		return $data;		
 

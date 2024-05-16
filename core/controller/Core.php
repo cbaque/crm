@@ -103,6 +103,36 @@ class Core {
 
 	}
 
+	public function archivosAgrupados( $data ) {
+		$response = '<table class="table table-bordered table-hover" id="tablaDatosAgrupados">';
+		$response .= '<thead><tr>';
+
+		$response .= '<th>Archivo</th>';
+		$response .='<th>Nombre Documento</th>';
+		$response .='<th>Extensión archivo</th>';
+		$response .='<th>Descargar</th>';
+		$response .='<th>Visualizar</th>';
+		$response .= '</tr></thead>';
+		$response .= '<tbody>';
+		foreach ($data as $archivo) { 
+			$response .='<tr>';
+			$response .= '<td data-titulo="No. Archivo">'.$archivo->nombre.'</td>';
+			$response .= '<td data-titulo="No. Archivo">'.$archivo->nombre.'</td>';
+			$response .= '<td data-titulo="No. Archivo">'.$archivo->tipo.'</td>';
+			$response .= '<td data-titulo="No. Archivo">'.$archivo->nombre.'</td>';
+			$response .= '<td data-titulo="No. Archivo"><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#visualizarArchivo" onclick="obtenerArchivoPorId('.$archivo->id.')">'.
+			'<span class="fa fa-eye"></span></a></td>';
+			$response .='</tr>';
+
+		}
+		$response .= '</tbody>';
+		$response .= '</table>';
+
+
+		echo $response;
+
+	}
+
 
 }
 

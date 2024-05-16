@@ -94,22 +94,6 @@
 					</div>
 				</div>
 
-				<div class="modal fade" id="viewArchivos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-lg" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Archivos</h5>
-							</div>
-							<div class="modal-body">
-								<div id="agrupacionArchivos"></div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-							</div>
-						</div>
-					</div>
-				</div>				
-
 				<br><br>
 				<form class="form-horizontal" role="form">
 					<input type="hidden" name="view" value="documentos">
@@ -167,28 +151,47 @@
 					<table class="table table-bordered table-hover" id="tablaGestorDataTable">
 						<thead>
 							<tr>
-								<th>Paciente</th>
-								<th>C&eacute;dula</th>
-								<th>Cantidad</th>
+								<th>Archivo</th>
+								<th>Nombre Documento</th>
+								<th>Extensión archivo</th>
+								<th>Descargar</th>
 								<th>Visualizar</th>
+								<th>Eliminar</th>
 							</tr>
 						</thead>
 						<?php
 						$extensionesValidas = array('png', 'JPEG', 'jpg', 'jpeg');
-						foreach ($users as $archivo) {
+						foreach ($users as $user) {
+							$archivo = $user->getArchivo();
 						?>
 							<tr>
-								<td data-titulo="Paciente"><?php echo $archivo->paciente; ?></td>
-								<td data-titulo="Cedula"><?php echo $archivo->cedula; ?></td>
-								<td data-titulo="Cantidad"><?php echo $archivo->cantidad; ?></td>
-
-								<td data-titulo="Visualizar">
-									<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewArchivos" onclick="obtenerDocumentosxArchivoID('<?php echo $archivo->archivo_id ?>')">
-										<span class="fa fa-eye"></span>
+								<td data-titulo="No. Archivo"><?php echo $archivo->nombre; ?></td>
+								<td data-titulo="Documento"><?php echo $user->nombre; ?></td>
+								<td data-titulo="Extensión"><?php echo $user->tipo; ?></td>
+								<td data-titulo="Descargar">
+									<a href="<?php echo $user->ruta; ?>" download="<?php echo $user->nombre; ?>" class="btn btn-success btn-sm">
+										<span class="fa fa-download"></span>
 									</a>
+								</td>
+								<td data-titulo="Visualizar">
+									<?php
+									for ($i = 0; $i < count($extensionesValidas); $i++) {
+										if ($extensionesValidas[$i] == $user->tipo) {
+									?>
+											<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#visualizarArchivo" onclick="obtenerArchivoPorId('<?php echo $user->id ?>')">
+												<span class="fa fa-eye"></span>
+											</a>
+									<?php
+										}
+									}
+									?>
 
 								</td>
-
+								<td data-titulo="Eliminar">
+									<span class="btn btn-danger btn-sm" onclick="eliminarArchivo('<?php echo $user->id ?>')">
+										<span class="fa fa-trash"></span>
+									</span>
+								</td>
 							</tr>
 						<?php
 						}
@@ -222,8 +225,8 @@
 </script>
 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function() {
 		$('#tablaGestorDataTable').DataTable();
 	});
-</script> -->
+</script>

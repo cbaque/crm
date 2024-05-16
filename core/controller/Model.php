@@ -24,6 +24,7 @@ class Model {
 		$cnt = 0;
 		$array = array();
 		while($r = $query->fetch_array()){
+
 			$array[$cnt] = new $aclass;
 			$cnt2=1;
 			foreach ($r as $key => $v) {

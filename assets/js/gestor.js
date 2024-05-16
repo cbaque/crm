@@ -94,3 +94,14 @@ function obtenerArchivoPorId(archivo_id) {
 		}
 	});
 }
+
+function obtenerDocumentosxArchivoID(archivo_id) {
+	$.ajax({
+		type:"POST",
+		data:"archivo_id=" + archivo_id,
+		url:"./?action=readDocumentsArchivoID",
+		success:function(respuesta){
+			$('#agrupacionArchivos').html(respuesta);
+		}
+	});
+}
