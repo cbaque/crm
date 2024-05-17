@@ -143,48 +143,40 @@
 					</div>
 				</form> -->
 				<?php
-				$users = array();
-				if ((isset($_GET["q"]) && isset($_GET["category_id"])) && ($_GET["q"] != "" || $_GET["category_id"] != "")) {
-					$sql = "select * from documentos where ";
-					if ($_GET["q"] != "") {
-						$sql .= " (nombre like '%$_GET[q]%') ";
-					}
+				$data = array();
+				$data = DocumentoData::getByArchivoId($_GET["id"]);
 
-					if ($_GET["category_id"] != "") {
-						if ($_GET["q"] != "") {
-							$sql .= " and ";
-						}
-
-						$sql .= " archivo_id = " . $_GET["category_id"];
-					}
-					$users = DocumentoData::getBySQL($sql);
-				} else {
-					$users = DocumentoData::getArchivoGroup();
-				}
-
-				if (count($users) > 0) {
+				if (count($data) > 0) {
 				?>
-					<table class="table row-border table-hover compact" id="tablaGestorArchivosDataTable">
+					<table class="table row-border table-hover compact" id="tablaGestorImages">
 						<thead>
 							<tr>
 								<th>Archivo</th>
-								<th>Fecha</th>
+								<th>Nombre Documento</th>
+								<th>Extensión archivo</th>
+                                <th>Descargar</th>
 								<th>Visualizar</th>
 							</tr>
 						</thead>
 						<?php
 						$extensionesValidas = array('png', 'JPEG', 'jpg', 'jpeg');
-						foreach ($users as $data) {
-							$archivo = $data->getArchivo();
+						foreach ($data as $data) {
+                            $archivo = $data->getArchivo();
 						?>
 							<tr>
-								<td data-titulo="Paciente"><?php echo $archivo->nombre; ?></td>
-								<td data-titulo="Cedula"><?php echo $data->fecha; ?></td>
+								<td data-titulo="No. Archivo"><?php echo $archivo->nombre; ?></td>
+								<td data-titulo="Documento"><?php echo $data->nombre; ?></td>
+								<td data-titulo="Extensión"><?php echo $data->tipo; ?></td>
+
+								<td data-titulo="Descargar">
+
+                                    <a href="'<?php echo $data->ruta ?>'" download="'<?php echo $data->nombre ?>'" class="btn btn-success btn-sm"><span class="fa fa-download"></span></a>
+
+								</td>                                
+
 								<td data-titulo="Visualizar">
-									
-									<a class="btn btn-primary btn-sm" href="?view=tablaGestorArchivos&id=<?= $data->archivo_id ?>" >
-										<span class="fa fa-eye"></span>
-									</a>
+
+                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#visualizarArchivo" onclick="obtenerArchivoPorId('<?php echo $data->id ?>')"><span class="fa fa-eye"></span></a>
 
 								</td>
 
@@ -223,6 +215,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#tablaGestorArchivosDataTable').DataTable();
+		$('#tablaGestorImages').DataTable();
 	});
 </script>

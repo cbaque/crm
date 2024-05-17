@@ -59,9 +59,9 @@ class DocumentoData {
 		return Model::many($query[0],new DocumentoData());
 	}
 
-	public static function getAllCount() {
+	public static function getAllCount($id) {
 
-		$sql = "select paciente, cedula, count(archivo_id) as cantidad, archivo_id from ".self::$tablename." GROUP by archivo_id ";
+		$sql = "select paciente, cedula, count(archivo_id) as cantidad, archivo_id from ".self::$tablename." where archivo_id = " .$id. " GROUP by archivo_id ";
 		$query = Executor::doit($sql);
 		
 		$data = Model::many($query[0],new DocumentoData());
@@ -74,6 +74,17 @@ class DocumentoData {
 	public static function getByArchivoId($archivoID) {
 
 		$sql = "select * from ".self::$tablename." where archivo_id = $archivoID ";
+		$query = Executor::doit($sql);
+		
+		$data = Model::many($query[0],new DocumentoData());
+
+		return $data;		
+
+	}
+
+	public static function getArchivoGroup() {
+
+		$sql = "select archivo_id, fecha from ".self::$tablename." GROUP by archivo_id ";
 		$query = Executor::doit($sql);
 		
 		$data = Model::many($query[0],new DocumentoData());
