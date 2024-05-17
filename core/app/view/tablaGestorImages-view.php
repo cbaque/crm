@@ -17,6 +17,11 @@
 					Agregar Documento
 				</span>
 
+				<a class="btn btn-default" href="?view=tablaGestor" >
+					Regresar	
+				</a>
+
+
 				<!-- Modal -->
 				<div class="modal fade" id="modalAgregarDocumento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
