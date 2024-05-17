@@ -98,7 +98,7 @@
 					<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Archivos</h5>
+								<h5 class="modal-title" id="exampleModalLabel">Listado de Im&aacute;genes</h5>
 							</div>
 							<div class="modal-body">
 								<div id="agrupacionArchivos"></div>

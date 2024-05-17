@@ -104,6 +104,8 @@ class Core {
 	}
 
 	public function archivosAgrupados( $data ) {
+
+
 		$response = '<table class="table table-bordered table-hover" id="tablaDatosAgrupados">';
 		$response .= '<thead><tr>';
 
@@ -115,12 +117,13 @@ class Core {
 		$response .= '</tr></thead>';
 		$response .= '<tbody>';
 		foreach ($data as $archivo) { 
+			$dataArch = $archivo->getArchivo();
 			$response .='<tr>';
-			$response .= '<td data-titulo="No. Archivo">'.$archivo->nombre.'</td>';
-			$response .= '<td data-titulo="No. Archivo">'.$archivo->nombre.'</td>';
-			$response .= '<td data-titulo="No. Archivo">'.$archivo->tipo.'</td>';
-			$response .= '<td data-titulo="No. Archivo">'.$archivo->nombre.'</td>';
-			$response .= '<td data-titulo="No. Archivo"><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#visualizarArchivo" onclick="obtenerArchivoPorId('.$archivo->id.')">'.
+			$response .= '<td data-titulo="No. Archivo">'.$dataArch->nombre.'</td>';
+			$response .= '<td data-titulo="Documento">'.$archivo->nombre.'</td>';
+			$response .= '<td data-titulo="Extensión">'.$archivo->tipo.'</td>';
+			$response .= '<td data-titulo="Descargar"><a href="'.$archivo->ruta.'" download="'.$archivo->nombre.'" class="btn btn-success btn-sm"><span class="fa fa-download"></span></a></td>';
+			$response .= '<td data-titulo="Visualizar"><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#visualizarArchivo" onclick="obtenerArchivoPorId('.$archivo->id.')">'.
 			'<span class="fa fa-eye"></span></a></td>';
 			$response .='</tr>';
 
