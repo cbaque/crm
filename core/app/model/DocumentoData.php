@@ -77,9 +77,9 @@ class DocumentoData {
 	}
 
 
-	public static function getByArchivoId($archivoID) {
+	public static function getByArchivoId($archivoID, $pacienteID, $categoryID) {
 
-		$sql = "select a.*, b.name as categoria from ".self::$tablename." as a JOIN category b on a.category_id = b.id where a.archivo_id = $archivoID ";
+		$sql = "select a.*, b.name as categoria from ".self::$tablename." as a JOIN category b on a.category_id = b.id where a.archivo_id = $archivoID and a.paciente_id = $pacienteID and category_id = $categoryID";
 		$query = Executor::doit($sql);
 		
 		$data = Model::many($query[0],new DocumentoData());
@@ -101,7 +101,7 @@ class DocumentoData {
 
 	public static function getAllCountCategory($archivo_id, $paciente_id) {
 
-		$sql = "select a.archivo_id, b.name as categoria from ".self::$tablename." a JOIN category b on a.category_id = b.id where archivo_id = ".$archivo_id." and a.paciente_id = ".$paciente_id." ";
+		$sql = "select b.id as category_id, b.name as categoria from ".self::$tablename." a JOIN category b on a.category_id = b.id where archivo_id = ".$archivo_id." and a.paciente_id = ".$paciente_id." ";
 		$query = Executor::doit($sql);
 		
 		$data = Model::many($query[0],new DocumentoData());

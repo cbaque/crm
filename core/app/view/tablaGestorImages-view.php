@@ -30,7 +30,7 @@
 
 				<?php
 				$data = array();
-				$data = DocumentoData::getByArchivoId($_GET["id"]);
+				$data = DocumentoData::getByArchivoId($_GET["archivo"], $_GET["paciente"], $_GET["categoria"]);
 
 				if (count($data) > 0) {
 				?>

@@ -51,7 +51,7 @@
 
 								<td data-titulo="Visualizar">
 
-									<a class="btn btn-primary btn-sm" href="?view=tablaGestorImages&id=<?= $archivo->archivo_id ?>" >
+									<a class="btn btn-primary btn-sm" href="?view=tablaGestorImages&archivo=<?= $_GET["archivo"] ?>&paciente=<?= $_GET["paciente"] ?>&categoria=<?= $archivo->category_id ?>" >
 										<span class="fa fa-eye"></span>
 									</a>
 
