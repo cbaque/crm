@@ -90,7 +90,7 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="input-group">
-												<span class="input-group-addon" id="basic-addon1">Categoria</span>
+												<span class="input-group-addon" id="basic-addon1">Estudio</span>
 												<?php $category = CategoryData::getAll(); ?>
 												<select name="category_id" class="form-control">
 													<option value="">SELECCIONE</option>
