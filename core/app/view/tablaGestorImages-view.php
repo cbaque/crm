@@ -9,13 +9,13 @@
 				<?php $archivo = ArchivoData::getAll(); ?>
 
 				<!-- Modal -->
-				<span class="btn btn-info" id="btnarch">
+				<!-- <span class="btn btn-info" id="btnarch">
 					Crear Archivo
 				</span>
 
 				<span class="btn btn-info" id="btndoc">
 					Agregar Documento
-				</span>
+				</span> -->
 
 				<a class="btn btn-default" href="?view=tablaGestor" >
 					Regresar	

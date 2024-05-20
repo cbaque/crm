@@ -35,8 +35,8 @@
                                 </td>
                                 <td data-titulo="Fecha" style="text-align: center;"><?php echo $data->created_at; ?></td>
                                 <td style="text-align: center;">
-                                    <a href="index.php?view=edituser&id=<?php echo $data->id; ?>" class="btn btn-warning btn-xs">Editar</a>
-                                    <a href="index.php?action=deluser&id=<?php echo $data->id; ?>" class="btn btn-danger btn-xs">Eliminar</a>
+                                    <a disabled class="btn btn-warning btn-xs">Editar</a>
+                                    <a disabled class="btn btn-danger btn-xs">Eliminar</a>
                                 </td>
                             </tr>
                         <?php

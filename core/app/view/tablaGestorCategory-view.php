@@ -5,22 +5,39 @@
 				<h4 class="title">Gestor de Documentos</h4>
 			</div>
 			<div class="card-content table-responsive">
+
 				<?php $archivo = ArchivoData::getAll(); ?>
+
 				<a class="btn btn-default" href="?view=tablaGestor" >
 					Regresar	
 				</a>
+
+				<div class="modal fade" id="viewArchivos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Listado de Im&aacute;genes</h5>
+							</div>
+							<div class="modal-body">
+								<div id="agrupacionArchivos"></div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+							</div>
+						</div>
+					</div>
+				</div>				
+
 				<?php
 				$data = array();
-				$data = DocumentoData::getAllCountPaciente($_GET["id"]);
+				$data = DocumentoData::getAllCountCategory($_GET["archivo"],$_GET["paciente"]);
 
 				if (count($data) > 0) {
 				?>
 					<table class="table row-border table-hover compact" id="tablaGestorDataTable">
 						<thead>
 							<tr>
-								<th>Paciente</th>
-								<th>C&eacute;dula</th>
-								<th>Cantidad</th>
+								<th>Categor&iacute;a</th>
 								<th>Visualizar</th>
 							</tr>
 						</thead>
@@ -29,13 +46,11 @@
 						foreach ($data as $archivo) {
 						?>
 							<tr>
-								<td data-titulo="Paciente"><?php echo $archivo->paciente; ?></td>
-								<td data-titulo="Cedula"><?php echo $archivo->cedula; ?></td>
-								<td data-titulo="Cantidad"><?php echo $archivo->cantidad; ?></td>
+								<td data-titulo="Categoria"><?php echo $archivo->categoria; ?></td>
 
 								<td data-titulo="Visualizar">
 
-									<a class="btn btn-primary btn-sm" href="?view=tablaGestorCategory&archivo=<?= $archivo->archivo_id ?>&paciente=<?= $archivo->paciente_id ?>" >
+									<a class="btn btn-primary btn-sm" href="?view=tablaGestorImages&id=<?= $archivo->archivo_id ?>" >
 										<span class="fa fa-eye"></span>
 									</a>
 
