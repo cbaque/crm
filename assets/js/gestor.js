@@ -1,6 +1,6 @@
 function agregarDocumentos() {
 	var formData = new FormData(document.getElementById('frmDocumentos'));
-
+	$('#spinner').show();
 	$.ajax({
 		url:"./?action=adddocumento",
 		type:"POST",
@@ -20,6 +20,8 @@ function agregarDocumentos() {
 			} else {
 				swal("", "Fallo al agregar !", "error");
 			}
+
+			$('#spinner').hide();
 		}
 	});
 } 

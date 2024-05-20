@@ -1,3 +1,33 @@
+<style>
+  .spinner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo semi-transparente */
+    z-index: 9999; /* Para asegurarse de que esté por encima de otros elementos */
+  }
+  
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 5px solid #f3f3f3; /* Gris claro para el borde */
+    border-top: 5px solid #3498db; /* Azul para el borde superior */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Animación de rotación */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -26,25 +56,60 @@
 							</div>
 							<div class="modal-body">
 								<form id="frmDocumentos" enctype="multipart/form-data">
-									<?php $archivo2 = ArchivoData::getAll(); ?>
-									<label>Archivo</label>
-									<select name="category_id" class="form-control">
-										<option value="">SELECCIONE</option>
-										<?php foreach ($archivo2 as $p) : ?>
-											<option value="<?php echo $p->id; ?>" <?php if (isset($_GET["category_id"]) && $_GET["category_id"] == $p->id) {
-																						echo "selected";
-																					} ?>><?php echo utf8_encode($p->nombre); ?></option>
-										<?php endforeach; ?>
-									</select>
-									<div class="modal-body">
-										<input type="text" name="namepac" required class="form-control" id="namepac" placeholder="Nombre">
-									</div>
-									<div class="modal-body">
-										<input type="text" name="cedulapac" required class="form-control" id="cedulapac" placeholder="Cedula">
+
+									<div class="row">
+										<div class="col-md-12">
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1">Archivo</span>
+												<?php $archivo2 = ArchivoData::getAll(); ?>
+												<select name="archivo_id" class="form-control">
+													<option value="">SELECCIONE</option>
+													<?php foreach ($archivo2 as $p) : ?>
+														<option value="<?php echo $p->id; ?>"><?php echo utf8_encode($p->nombre); ?></option>
+													<?php endforeach; ?>
+												</select>
+											</div>											
+										</div>
 									</div>
 
-									<label>Selecciona Documento</label>
-									<input type="file" name="archivos[]" id="archivos" class="form-control" multiple="multiple">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1">Paciente</span>
+												<?php $pacientes = PacienteData::getAll(); ?>
+												<select name="paciente_id" class="form-control">
+													<option value="">SELECCIONE</option>
+													<?php foreach ($pacientes as $p) : ?>
+														<option value="<?php echo $p->id; ?>"><?php echo $p->name . ' '.$p->lastname; ?></option>
+													<?php endforeach; ?>
+												</select>
+											</div>											
+										</div>
+									</div>	
+									
+									<div class="row">
+										<div class="col-md-12">
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1">Categoria</span>
+												<?php $category = CategoryData::getAll(); ?>
+												<select name="category_id" class="form-control">
+													<option value="">SELECCIONE</option>
+													<?php foreach ($category as $p) : ?>
+														<option value="<?php echo $p->id; ?>"><?php echo $p->name?></option>
+													<?php endforeach; ?>
+												</select>
+											</div>											
+										</div>
+									</div>										
+
+									<div class="row">
+										<div class="col-md-12">
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1">Documento</span>
+												<input type="file" name="archivos[]" id="archivos" class="form-control" multiple="multiple">
+											</div>											
+										</div>
+									</div>
 								</form>
 							</div>
 							<div class="modal-footer">
@@ -110,38 +175,6 @@
 					</div>
 				</div>				
 
-				<br><br>
-				<!-- <form class="form-horizontal" role="form">
-					<input type="hidden" name="view" value="documentos">
-
-					<div class="form-group">
-						<div class="col-lg-2">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-search"></i></span>
-								<input type="text" name="q" value="<?php if (isset($_GET["q"]) && $_GET["q"] != "") {
-																		echo $_GET["q"];
-																	} ?>" class="form-control" placeholder="Nombre">
-							</div>
-						</div>
-						<div class="col-lg-2">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-th-list"></i></span>
-								<select name="category_id" class="form-control">
-									<option value="">ARCHIVO</option>
-									<?php foreach ($archivo as $p) : ?>
-										<option value="<?php echo $p->id; ?>" <?php if (isset($_GET["category_id"]) && $_GET["category_id"] == $p->id) {
-																					echo "selected";
-																				} ?>><?php echo utf8_encode($p->nombre); ?></option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-						</div>
-
-						<div class="col-lg-2">
-							<button class="btn btn-primary btn-block">Buscar</button>
-						</div>
-					</div>
-				</form> -->
 				<?php
 				$users = array();
 				if ((isset($_GET["q"]) && isset($_GET["category_id"])) && ($_GET["q"] != "" || $_GET["category_id"] != "")) {
@@ -204,6 +237,11 @@
 
 	</div>
 </div>
+
+<div id="spinner" class="spinner-container" style="display:none;">
+  <div class="spinner"></div>
+</div>
+
 <script src="assets/js/gestor.js"></script>
 <script type="text/javascript">
 	$('#btndoc').on('click', function() {
@@ -218,6 +256,7 @@
 	$('#btnGuardarArchivos').click(function() {
 		agregarArchivos();
 	});
+
 </script>
 
 

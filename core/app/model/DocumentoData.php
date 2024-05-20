@@ -12,6 +12,8 @@ class DocumentoData {
 	public $paciente;
 	public $cedula;
 	public $cantidad;
+	public $paciente_id;
+	public $category_id;
 
 	public function DocumentoData(){
 		$this->id = "";
@@ -24,14 +26,16 @@ class DocumentoData {
 		$this->paciente = "";
 		$this->cedula= "";
 		$this->cantidad= 0;
+		$this->paciente_id;
+		$this->category_id;
 
 	}
 
 	public function getArchivo(){ return ArchivoData::getById($this->archivo_id); }
 
 	public function add(){
-		$sql = "insert into ".self::$tablename." (archivo_id,fecha,nombre,ruta,tipo,usuario_id, paciente, cedula) ";
-		$sql .= "value ($this->archivo_id,\"$this->fecha\",\"$this->nombre\",\"$this->ruta\",\"$this->tipo\",$this->usuario_id,\"$this->paciente\",\"$this->cedula\")";
+		$sql = "insert into ".self::$tablename." (archivo_id,fecha,nombre,ruta,tipo,usuario_id, paciente_id, category_id) ";
+		$sql .= "value ($this->archivo_id,\"$this->fecha\",\"$this->nombre\",\"$this->ruta\",\"$this->tipo\",$this->usuario_id,\"$this->paciente_id\",\"$this->category_id\")";
 		return Executor::doit($sql);
 	}
 

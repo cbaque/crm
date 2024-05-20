@@ -2,17 +2,20 @@
 /*session_start();
 require_once "../model/DocumentoData.php";*/
 $r = new DocumentoData();
-$r->archivo_id = $_POST["category_id"];
+$r->archivo_id = $_POST["archivo_id"];
+$r->paciente_id = $_POST["paciente_id"];
+$r->category_id = $_POST["category_id"];
+
 $r->usuario_id = $_SESSION["user_id"];
 $r->nombre = "";
 $r->ruta = "";
 $r->tipo = "";
-$r->paciente = $_POST["namepac"];
-$r->cedula = $_POST["cedulapac"];
+// $r->paciente = $_POST["namepac"];
+// $r->cedula = $_POST["cedulapac"];
 
 if($_FILES['archivos']['size'] > 0) {
 
-	$carpetaArchivo =  "uploads/".$r->archivo_id."/".$r->paciente;
+	$carpetaArchivo =  "uploads/".$r->archivo_id."/".$r->paciente_id."/".$r->category_id;
 
 	if (!file_exists($carpetaArchivo)) {
 		mkdir($carpetaArchivo, 0777, true);
