@@ -93,6 +93,12 @@
                           <p>Usuarios</p>
                       </a>
                   </li>
+                  <li>
+                      <a href="./?view=pacientes">
+                          <i class="fa fa-user-md" aria-hidden="true"></i>
+                          <p>Pacientes</p>
+                      </a>
+                  </li>                  
                   <?php endif; ?>
               </ul>              
         </div>
