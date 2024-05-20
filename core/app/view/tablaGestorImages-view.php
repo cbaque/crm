@@ -156,7 +156,7 @@
 					<table class="table row-border table-hover compact" id="tablaGestorImages">
 						<thead>
 							<tr>
-								<th>Archivo</th>
+								<th>Tipo de Estudio</th>
 								<th>Nombre Documento</th>
 								<th>Extensión archivo</th>
                                 <th>Descargar</th>
@@ -169,7 +169,7 @@
                             $archivo = $data->getArchivo();
 						?>
 							<tr>
-								<td data-titulo="No. Archivo"><?php echo $archivo->nombre; ?></td>
+								<td data-titulo="Tipo Estudio"><?php echo $data->categoria; ?></td>
 								<td data-titulo="Documento"><?php echo $data->nombre; ?></td>
 								<td data-titulo="Extensión"><?php echo $data->tipo; ?></td>
 

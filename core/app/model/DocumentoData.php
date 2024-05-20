@@ -67,7 +67,7 @@ class DocumentoData {
 
 	public static function getAllCountPaciente($id) {
 
-		$sql = "select count(archivo_id) as cantidad, archivo_id,b.name as paciente, b.identificacion as cedula, a.paciente_id from ".self::$tablename." a JOIN patients b on a.paciente_id = b.id where archivo_id = " .$id. " GROUP by archivo_id , b.name, b.identificacion, a.paciente_id";
+		$sql = "select count(archivo_id) as cantidad, archivo_id, CONCAT(b.name, ' ', b.lastname) as paciente, b.identificacion as cedula, a.paciente_id from ".self::$tablename." a JOIN patients b on a.paciente_id = b.id where archivo_id = " .$id. " GROUP by archivo_id , b.name, b.identificacion, a.paciente_id";
 		$query = Executor::doit($sql);
 		
 		$data = Model::many($query[0],new DocumentoData());
@@ -79,7 +79,7 @@ class DocumentoData {
 
 	public static function getByArchivoId($archivoID) {
 
-		$sql = "select * from ".self::$tablename." where archivo_id = $archivoID ";
+		$sql = "select a.*, b.name as categoria from ".self::$tablename." as a JOIN category b on a.category_id = b.id where a.archivo_id = $archivoID ";
 		$query = Executor::doit($sql);
 		
 		$data = Model::many($query[0],new DocumentoData());

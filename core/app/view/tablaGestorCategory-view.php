@@ -37,8 +37,9 @@
 					<table class="table row-border table-hover compact" id="tablaGestorDataTable">
 						<thead>
 							<tr>
-								<th>Categor&iacute;a</th>
+								<th>Estudio</th>
 								<th>Visualizar</th>
+								<th>Reportar</th>
 							</tr>
 						</thead>
 						<?php
@@ -55,6 +56,15 @@
 									</a>
 
 								</td>
+
+
+								<td data-titulo="Reportar">
+
+									<a class="btn btn-secondary btn-sm" disabled>
+										<span class="fa fa-archive"></span>
+									</a>
+
+								</td>								
 
 							</tr>
 						<?php

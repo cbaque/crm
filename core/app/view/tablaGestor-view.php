@@ -215,7 +215,7 @@
 								<td data-titulo="Cedula"><?php echo $data->fecha; ?></td>
 								<td data-titulo="Visualizar">
 									
-									<a class="btn btn-primary btn-sm" href="?view=tablaGestorArchivos&id=<?= $data->archivo_id ?>" >
+									<a class="btn btn-primary btn-sm" href="?view=tablaGestorPacientes&id=<?= $data->archivo_id ?>" >
 										<span class="fa fa-eye"></span>
 									</a>
 
